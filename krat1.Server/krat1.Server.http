@@ -1,0 +1,6 @@
+@krat1.Server_HostAddress = http://localhost:5036
+
+GET {{krat1.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
