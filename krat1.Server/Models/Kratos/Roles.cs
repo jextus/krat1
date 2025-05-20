@@ -1,23 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using krat1.Server.Models.Kratos;
 
 namespace Krat1.Server.Models.Kratos
 {
-    public class ActividadEconomica
+    public class Roles
     {
-        public int id { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
-        public string codigo_ciiu { get; set; }
+        public int id_rol { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string nombre { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(500, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string descripcion { get; set; }
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string categoria { get; set; }
-    
-     
-    
+        [ForeignKey("Empresas")]
+        public int empresaId { get; set; }
+        public Empresas? rolempresaId { get; set; }
     }
+  
 }
