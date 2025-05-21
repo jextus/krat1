@@ -7,6 +7,9 @@ namespace krat1.Server.Models.Kratos
     public class Modulos
     {
         public int id { get; set; }
+
+
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string nombre { get; set; }
     }
 }

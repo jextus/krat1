@@ -9,9 +9,20 @@ namespace krat1.Server.Models.Kratos
     {
         public int id { get; set; }
 
+
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string nombre { get; set; }
+
+
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string descripcion { get; set; }
+
+
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string codigo { get; set; }
+        
+        
+
         public bool estado { get; set; }
     }
 }

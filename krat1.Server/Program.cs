@@ -1,14 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Practica.Server.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddDbContext<KratosContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
-builder.Services.AddDbContext<KratosContext>options =>
-    options.UserSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IService,Service>();
+
 var app = builder.Build();
 
 app.UseDefaultFiles();

@@ -6,20 +6,31 @@ namespace krat1.Server.Models.Kratos
     public class Categorias
     {
         public int id { get; set; }
+
+
         [ForeignKey("Categorias")]
         public int categoriaPadre { get; set; }
         public Categorias? categoriaPadre_fk { get; set; }
+        
+
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string nombre { get; set; }
+        
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(500, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string descripcion { get; set; }
+        
+        
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-
         public bool activo { get; set; }
+        
+        
         [DataType(DataType.DateTime)]
         public DateTime creado_en { get; set; }
+        
+        
         [DataType(DataType.DateTime)]
         public DateTime actualizado_en { get; set; }
 

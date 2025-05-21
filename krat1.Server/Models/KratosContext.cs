@@ -23,7 +23,6 @@ namespace Practica.Server.Models
         public DbSet<RegimenesTributarios> RegimenesTributarios { get; set; }
         public DbSet<Roles> Roles { get; set; }
         public DbSet<TiposSociedades> TiposSociedades { get; set; }
-        public DbSet<TokenEmpresaUsuarios> TokenEmpresaUsuarios { get; set; }
         public DbSet<TratamientosEmpresas> TratamientosEmpresas { get; set; }
         public DbSet<Usuarios> Usuarios { get; set; }
 
@@ -85,6 +84,29 @@ namespace Practica.Server.Models
                 .WithMany()
                 .HasForeignKey(i => i.puntoVentaId)
                 .OnDelete(DeleteBehavior.Restrict);
+            
+
+            modelBuilder.Entity<Impuestos>()
+                .HasOne(p => p.impuestoSociedades_fk)
+                .WithMany()
+                .HasForeignKey(p => p.sociedadesId) 
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Impuestos>()
+             .HasOne(p => p.impuestoActividad_fk)
+             .WithMany()
+             .HasForeignKey(p => p.actividadId)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Impuestos>()
+             .HasOne(p => p.impuestoRegimen_fk)
+             .WithMany()
+             .HasForeignKey(p => p.regimenId)
+             .OnDelete(DeleteBehavior.Restrict);
+
+
+
+
 
             modelBuilder.Entity<Permisos>()
                 .HasOne(p => p.permisosrolesId)
@@ -106,33 +128,12 @@ namespace Practica.Server.Models
                 .HasForeignKey(pv => pv.ResponsableId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-         
-            modelBuilder.Entity<TokenEmpresaUsuarios>()
-                .HasOne(teu => teu.tokenEmpresa_fk)
-                .WithMany()
-                .HasForeignKey(teu => teu.token)
-                .OnDelete(DeleteBehavior.Restrict);
-
-        
-            modelBuilder.Entity<TokenEmpresaUsuarios>()
-                .HasOne(teu => teu.tokenUsuarios_fk)
-                .WithMany()
-                .HasForeignKey(teu => teu.tokenUsuario)
-                .OnDelete(DeleteBehavior.Restrict);
-
         
             modelBuilder.Entity<Usuarios>()
                 .HasOne(u => u.usuariosrolesId)
                 .WithMany()
                 .HasForeignKey(u => u.rolesId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Usuarios>()
-                .HasOne(u => u.tokenUsuario_fk)
-                .WithMany()
-                .HasForeignKey(u => u.tokenUsuario)
-                .OnDelete(DeleteBehavior.Restrict);
-
           
             modelBuilder.Entity<TratamientosEmpresas>()
                 .HasOne(te => te.empresa_fk)
