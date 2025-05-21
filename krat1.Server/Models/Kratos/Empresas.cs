@@ -15,7 +15,7 @@ namespace krat1.Server.Models.Kratos
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("ActividadEconomica")]
         public int actividadId { get; set; }
-        public ActividadEconomica? empresaActividad_fk { get; set; }
+        public ActividadEconomicas? empresaActividad_fk { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("RegimenTributario")]
         public int regimenId { get; set; }

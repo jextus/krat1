@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Krat1.Server.Models.Kratos
 {
-    public class ActividadEconomica
+    public class ActividadEconomicas
     {
         public int id { get; set; }
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
