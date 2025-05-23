@@ -30,128 +30,130 @@ namespace Practica.Server.Models
         {
             base.OnModelCreating(modelBuilder);
 
-           
+            // Empresas -> TiposSociedades
             modelBuilder.Entity<Empresas>()
-                .HasOne(e => e.empresaSociedad_fk)
+                .HasOne(e => e.empresasociedadFk)
                 .WithMany()
                 .HasForeignKey(e => e.tiposociedadId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-      
+            // Empresas -> ActividadEconomicas
             modelBuilder.Entity<Empresas>()
-                .HasOne(e => e.empresaActividad_fk)
+                .HasOne(e => e.empresaactividadFk)
                 .WithMany()
                 .HasForeignKey(e => e.actividadId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            
+            // Empresas -> RegimenesTributarios
             modelBuilder.Entity<Empresas>()
-                .HasOne(e => e.empresaRegimen_fk)
+                .HasOne(e => e.empresaregimenFk)
                 .WithMany()
                 .HasForeignKey(e => e.regimenId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-           
+            // Roles -> Empresas
             modelBuilder.Entity<Roles>()
-                .HasOne(r => r.rolempresaId)
+                .HasOne(r => r.rolempresaFk)
                 .WithMany()
                 .HasForeignKey(r => r.empresaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Productos -> TratamientosEmpresas
             modelBuilder.Entity<Productos>()
-                .HasOne(p => p.tratamiento_fk)
+                .HasOne(p => p.impuestoFk)
                 .WithMany()
-                .HasForeignKey(p => p.Impuesto)
+                .HasForeignKey(p => p.impuestoId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-        
+            // Productos -> Categorias
             modelBuilder.Entity<Productos>()
-                .HasOne(p => p.categoria_fk)
+                .HasOne(p => p.categoriaFk)
                 .WithMany()
-                .HasForeignKey(p => p.categoria)
+                .HasForeignKey(p => p.categoriaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-       
+            // Inventarios -> Productos
             modelBuilder.Entity<Inventarios>()
-                .HasOne(i => i.producto_fk)
+                .HasOne(i => i.productoFk)
                 .WithMany()
                 .HasForeignKey(i => i.productoId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-    
+            // Inventarios -> PuntoVentas
             modelBuilder.Entity<Inventarios>()
-                .HasOne(i => i.puntoVenta_fk)
+                .HasOne(i => i.puntoventaFk)
                 .WithMany()
-                .HasForeignKey(i => i.puntoVentaId)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-
-            modelBuilder.Entity<Impuestos>()
-                .HasOne(p => p.impuestoSociedades_fk)
-                .WithMany()
-                .HasForeignKey(p => p.sociedadesId) 
+                .HasForeignKey(i => i.puntoventaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Impuestos -> TiposSociedades
             modelBuilder.Entity<Impuestos>()
-             .HasOne(p => p.impuestoActividad_fk)
-             .WithMany()
-             .HasForeignKey(p => p.actividadId)
-             .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(i => i.impuestosociedadesFk)
+                .WithMany()
+                .HasForeignKey(i => i.sociedadesId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // Impuestos -> ActividadEconomicas
             modelBuilder.Entity<Impuestos>()
-             .HasOne(p => p.impuestoRegimen_fk)
-             .WithMany()
-             .HasForeignKey(p => p.regimenId)
-             .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(i => i.impuestoactividadFk)
+                .WithMany()
+                .HasForeignKey(i => i.actividadId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // Impuestos -> RegimenesTributarios
+            modelBuilder.Entity<Impuestos>()
+                .HasOne(i => i.impuestoregimenFk)
+                .WithMany()
+                .HasForeignKey(i => i.regimenId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-
-
-
+            // Permisos -> Roles
             modelBuilder.Entity<Permisos>()
                 .HasOne(p => p.permisosrolesId)
                 .WithMany()
                 .HasForeignKey(p => p.rolesId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-     
+            // Permisos -> Modulos
             modelBuilder.Entity<Permisos>()
                 .HasOne(p => p.permisosmodulosId)
                 .WithMany()
                 .HasForeignKey(p => p.modulosId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-           
+            // PuntoVentas -> Usuarios
             modelBuilder.Entity<PuntoVentas>()
-                .HasOne(pv => pv.usuario_fk)
+                .HasOne(pv => pv.usuarioFk)
                 .WithMany()
-                .HasForeignKey(pv => pv.ResponsableId)
+                .HasForeignKey(pv => pv.responsableId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-        
+            // Usuarios -> Roles
             modelBuilder.Entity<Usuarios>()
-                .HasOne(u => u.usuariosrolesId)
+                .HasOne(u => u.usuariosrolesFk)
                 .WithMany()
                 .HasForeignKey(u => u.rolesId)
                 .OnDelete(DeleteBehavior.Restrict);
-          
+
+            // TratamientosEmpresas -> Empresas
             modelBuilder.Entity<TratamientosEmpresas>()
-                .HasOne(te => te.empresa_fk)
+                .HasOne(te => te.empresaFk)
                 .WithMany()
                 .HasForeignKey(te => te.empresaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // TratamientosEmpresas -> Impuestos
             modelBuilder.Entity<TratamientosEmpresas>()
-                .HasOne(te => te.impuestos_fk)
+                .HasOne(te => te.impuestosFk)
                 .WithMany()
-                .HasForeignKey(te => te.tipoImpuesto)
+                .HasForeignKey(te => te.tipoimpuestoId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-         
+            // Categorias -> Categorias (self reference)
             modelBuilder.Entity<Categorias>()
-                .HasOne(c => c.categoriaPadre_fk)
+                .HasOne(c => c.categoriapadreFk)
                 .WithMany()
-                .HasForeignKey(c => c.categoriaPadre)
+                .HasForeignKey(c => c.categoriapadreId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

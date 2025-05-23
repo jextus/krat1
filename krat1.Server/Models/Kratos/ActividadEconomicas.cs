@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Krat1.Server.Models.Kratos
 {
@@ -9,7 +8,7 @@ namespace Krat1.Server.Models.Kratos
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
-        public string codigo_ciiu { get; set; }
+        public string codigoCiiu { get; set; }
 
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -23,8 +22,8 @@ namespace Krat1.Server.Models.Kratos
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string categoria { get; set; }
-    
-     
-    
+
+
+
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace krat1.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class DbKratos : Migration
+    public partial class Cambios002 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace krat1.Server.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    codigo_ciiu = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    codigoCiiu = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     categoria = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -33,19 +33,19 @@ namespace krat1.Server.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    categoriaPadre = table.Column<int>(type: "int", nullable: false),
+                    categoriapadreId = table.Column<int>(type: "int", nullable: false),
                     nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     descripcion = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     activo = table.Column<bool>(type: "bit", nullable: false),
-                    creado_en = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    actualizado_en = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    creadoEn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    actualizadoEn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categorias", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Categorias_Categorias_categoriaPadre",
-                        column: x => x.categoriaPadre,
+                        name: "FK_Categorias_Categorias_categoriapadreId",
+                        column: x => x.categoriapadreId,
                         principalTable: "Categorias",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -86,7 +86,7 @@ namespace krat1.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    codigo = table.Column<int>(type: "int", nullable: false),
+                    codigo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     descripcion = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false)
                 },
@@ -101,10 +101,12 @@ namespace krat1.Server.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    contraseña = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    confirmarContraseña = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     tiposociedadId = table.Column<int>(type: "int", nullable: false),
                     actividadId = table.Column<int>(type: "int", nullable: false),
                     regimenId = table.Column<int>(type: "int", nullable: false),
-                    token = table.Column<int>(type: "int", nullable: false),
+                    token = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     razonSocial = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     nombreComercial = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     nit = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -113,8 +115,8 @@ namespace krat1.Server.Migrations
                     email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     representanteLegal = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     activo = table.Column<bool>(type: "bit", nullable: false),
-                    creado_en = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    actualizado_en = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    creadoEn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    actualizadoEn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,7 +206,7 @@ namespace krat1.Server.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     empresaId = table.Column<int>(type: "int", nullable: false),
-                    tipoImpuesto = table.Column<int>(type: "int", nullable: false),
+                    tipoimpuestoId = table.Column<int>(type: "int", nullable: false),
                     porcentaje = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
@@ -217,8 +219,8 @@ namespace krat1.Server.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TratamientosEmpresas_Impuestos_tipoImpuesto",
-                        column: x => x.tipoImpuesto,
+                        name: "FK_TratamientosEmpresas_Impuestos_tipoimpuestoId",
+                        column: x => x.tipoimpuestoId,
                         principalTable: "Impuestos",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -235,7 +237,6 @@ namespace krat1.Server.Migrations
                     nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     descripcion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     codigo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    moduloId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     consultar = table.Column<bool>(type: "bit", nullable: false),
                     leer = table.Column<bool>(type: "bit", nullable: false),
                     insertar = table.Column<bool>(type: "bit", nullable: false),
@@ -269,13 +270,15 @@ namespace krat1.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     rolesId = table.Column<int>(type: "int", nullable: false),
                     contraseña = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    confirmarContraseña = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    token = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     nombres = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     apellidos = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     telefono = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     estado = table.Column<bool>(type: "bit", nullable: false),
-                    creado_en = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    actualizado_en = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    creadoEn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    actualizadoEn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -294,30 +297,30 @@ namespace krat1.Server.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    codigo = table.Column<int>(type: "int", nullable: false),
-                    Impuesto = table.Column<int>(type: "int", nullable: false),
+                    codigo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    impuestoId = table.Column<int>(type: "int", nullable: false),
                     nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     descripcion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    categoria = table.Column<int>(type: "int", nullable: false),
+                    categoriaId = table.Column<int>(type: "int", nullable: false),
                     precio = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     costo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     stockMinimo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     activo = table.Column<bool>(type: "bit", nullable: false),
-                    creado_en = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    actualizado_en = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    creadoEn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    actualizadoEn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Productos", x => x.id);
                     table.ForeignKey(
-                        name: "FK_Productos_Categorias_categoria",
-                        column: x => x.categoria,
+                        name: "FK_Productos_Categorias_categoriaId",
+                        column: x => x.categoriaId,
                         principalTable: "Categorias",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Productos_TratamientosEmpresas_Impuesto",
-                        column: x => x.Impuesto,
+                        name: "FK_Productos_TratamientosEmpresas_impuestoId",
+                        column: x => x.impuestoId,
                         principalTable: "TratamientosEmpresas",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -330,19 +333,19 @@ namespace krat1.Server.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    direccion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    telefono = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ResponsableId = table.Column<int>(type: "int", nullable: false),
+                    direccion = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    telefono = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    responsableId = table.Column<int>(type: "int", nullable: false),
                     activo = table.Column<bool>(type: "bit", nullable: false),
-                    creado_en = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    actualizado_en = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    creadoEn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    actualizadoEn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PuntoVentas", x => x.id);
                     table.ForeignKey(
-                        name: "FK_PuntoVentas_Usuarios_ResponsableId",
-                        column: x => x.ResponsableId,
+                        name: "FK_PuntoVentas_Usuarios_responsableId",
+                        column: x => x.responsableId,
                         principalTable: "Usuarios",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -355,10 +358,10 @@ namespace krat1.Server.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     productoId = table.Column<int>(type: "int", nullable: false),
-                    puntoVentaId = table.Column<int>(type: "int", nullable: false),
+                    puntoventaId = table.Column<int>(type: "int", nullable: false),
                     cantidad = table.Column<int>(type: "int", nullable: false),
-                    creado_en = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    actualizado_en = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    creadoEn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    actualizadoEn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -370,17 +373,17 @@ namespace krat1.Server.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Inventarios_PuntoVentas_puntoVentaId",
-                        column: x => x.puntoVentaId,
+                        name: "FK_Inventarios_PuntoVentas_puntoventaId",
+                        column: x => x.puntoventaId,
                         principalTable: "PuntoVentas",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categorias_categoriaPadre",
+                name: "IX_Categorias_categoriapadreId",
                 table: "Categorias",
-                column: "categoriaPadre");
+                column: "categoriapadreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Empresas_actividadId",
@@ -418,9 +421,9 @@ namespace krat1.Server.Migrations
                 column: "productoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventarios_puntoVentaId",
+                name: "IX_Inventarios_puntoventaId",
                 table: "Inventarios",
-                column: "puntoVentaId");
+                column: "puntoventaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permisos_modulosId",
@@ -433,19 +436,19 @@ namespace krat1.Server.Migrations
                 column: "rolesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Productos_categoria",
+                name: "IX_Productos_categoriaId",
                 table: "Productos",
-                column: "categoria");
+                column: "categoriaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Productos_Impuesto",
+                name: "IX_Productos_impuestoId",
                 table: "Productos",
-                column: "Impuesto");
+                column: "impuestoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PuntoVentas_ResponsableId",
+                name: "IX_PuntoVentas_responsableId",
                 table: "PuntoVentas",
-                column: "ResponsableId");
+                column: "responsableId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_empresaId",
@@ -458,9 +461,9 @@ namespace krat1.Server.Migrations
                 column: "empresaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TratamientosEmpresas_tipoImpuesto",
+                name: "IX_TratamientosEmpresas_tipoimpuestoId",
                 table: "TratamientosEmpresas",
-                column: "tipoImpuesto");
+                column: "tipoimpuestoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Usuarios_rolesId",

@@ -6,27 +6,30 @@ namespace krat1.Server.Models.Kratos
     public class Inventarios
     {
         public int id { get; set; }
-       
-        
+
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("Productos")]
         public int productoId { get; set; }
-        public Productos? producto_fk { get; set; }
-        
-        
+        public Productos? productoFk { get; set; }
+
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("PuntoVentas")]
-        public int puntoVentaId { get; set; }
-        public PuntoVentas? puntoVenta_fk { get; set; }
-        
-        
+        public int puntoventaId { get; set; }
+        public PuntoVentas? puntoventaFk { get; set; }
+
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public int cantidad { get; set; }
         
         
         [DataType(DataType.DateTime)]
-        public DateTime creado_en { get; set; }
+        public DateTime creadoEn { get; set; }
         
         
         [DataType(DataType.DateTime)]
-        public DateTime actualizado_en { get; set; }
+        public DateTime actualizadoEn { get; set; }
 
     }
 }

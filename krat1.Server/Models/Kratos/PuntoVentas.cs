@@ -13,27 +13,33 @@ namespace krat1.Server.Models.Kratos
         public string nombre { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
-        public string? direccion { get; set; }
+        public string direccion { get; set; }
 
 
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
-        public string? telefono { get; set; }
+        public string telefono { get; set; }
         
         
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("Usuario")]
-        public int ResponsableId { get; set; }
-        public Usuarios? usuario_fk { get; set; }
+        public int responsableId { get; set; }
+        public Usuarios? usuarioFk { get; set; }
         
         
+
         public bool activo { get; set; }
         
         
         [DataType(DataType.DateTime)]
-        public DateTime creado_en { get; set; }
+        public DateTime creadoEn { get; set; }
         
         
         [DataType(DataType.DateTime)]
-        public DateTime actualizado_en { get; set; }
+        public DateTime actualizadoEn { get; set; }
     }
 }

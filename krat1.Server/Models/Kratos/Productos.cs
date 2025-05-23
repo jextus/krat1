@@ -9,39 +9,45 @@ namespace krat1.Server.Models.Kratos
       
         
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public int codigo { get; set; }
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
+        public string codigo { get; set; }
         
         
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("TratamientosEmpresas")]
-        public int Impuesto { get; set; }
-        public TratamientosEmpresas? tratamiento_fk { get; set; }
+        public int impuestoId { get; set; }
+        public TratamientosEmpresas? impuestoFk { get; set; }
 
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
+
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string nombre { get; set; }
 
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
+
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string descripcion { get; set; }
-        
-        
-        [ForeignKey("Categorias")]
-        public int categoria { get; set; }
-        public Categorias? categoria_fk { get; set; }
 
 
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
+
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [ForeignKey("Categorias")]
+        public int categoriaId { get; set; }
+        public Categorias? categoriaFk { get; set; }
+
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string precio { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string costo { get; set; }
 
 
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string stockMinimo { get; set; }
         
         
@@ -50,10 +56,10 @@ namespace krat1.Server.Models.Kratos
         
         
         [DataType(DataType.DateTime)]
-        public DateTime creado_en { get; set; }
+        public DateTime creadoEn { get; set; }
         
         
         [DataType(DataType.DateTime)]
-        public DateTime actualizado_en { get; set; }
+        public DateTime actualizadoEn { get; set; }
     }
 }

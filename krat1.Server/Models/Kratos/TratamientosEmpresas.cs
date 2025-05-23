@@ -10,17 +10,18 @@ namespace krat1.Server.Models.Kratos
         public int id { get; set; }
 
 
-        
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("Empresas")]
         public int empresaId { get; set; }
-        public Empresas? empresa_fk { get; set; }
-        
-        
+        public Empresas? empresaFk { get; set; }
+
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("Impuestos")]
-        public int tipoImpuesto { get; set; }
-        public Impuestos? impuestos_fk { get; set; }
+        public int tipoimpuestoId { get; set; }
+        public Impuestos? impuestosFk { get; set; }
 
-
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string porcentaje { get; set; }
     }

@@ -9,8 +9,8 @@ namespace krat1.Server.Models.Kratos
 
 
         [ForeignKey("Categorias")]
-        public int categoriaPadre { get; set; }
-        public Categorias? categoriaPadre_fk { get; set; }
+        public int categoriapadreId { get; set; }
+        public Categorias? categoriapadreFk { get; set; }
         
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -28,11 +28,11 @@ namespace krat1.Server.Models.Kratos
         
         
         [DataType(DataType.DateTime)]
-        public DateTime creado_en { get; set; }
+        public DateTime creadoEn { get; set; }
         
         
         [DataType(DataType.DateTime)]
-        public DateTime actualizado_en { get; set; }
+        public DateTime actualizadoEn { get; set; }
 
 
     }

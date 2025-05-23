@@ -13,42 +13,44 @@ namespace krat1.Server.Models.Kratos
 
         [ForeignKey("Roles")]
         public int rolesId { get; set; }
-        public Roles? usuariosrolesId { get; set; }
+        public Roles? usuariosrolesFk { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string contraseña { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         [DataType(DataType.Password)]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string confirmarContraseña { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
+        public string token { get; set; }
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string email { get; set; }
 
 
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string nombres { get; set; }
 
 
-
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
-        public string apellidos { get; set; }
-      
-        
-        
-        [DataType(DataType.PhoneNumber)]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
+        public string apellidos { get; set; }
+
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
+        [DataType(DataType.PhoneNumber)]
         public string telefono { get; set; }
         
         
@@ -57,11 +59,11 @@ namespace krat1.Server.Models.Kratos
         
         
         [DataType(DataType.DateTime)]
-        public DateTime creado_en { get; set; }
+        public DateTime creadoEn { get; set; }
         
         
         
         [DataType(DataType.DateTime)]
-        public DateTime actualizado_en { get; set; }
+        public DateTime actualizadoEn { get; set; }
     }
 }

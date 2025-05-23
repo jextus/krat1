@@ -19,11 +19,12 @@ namespace Krat1.Server.Models.Kratos
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(500, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string descripcion { get; set; }
-        
-        
+
+
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("Empresas")]
         public int empresaId { get; set; }
-        public Empresas? rolempresaId { get; set; }
+        public Empresas? rolempresaFk { get; set; }
     }
   
 }

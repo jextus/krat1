@@ -12,8 +12,8 @@ using Practica.Server.Models;
 namespace krat1.Server.Migrations
 {
     [DbContext(typeof(KratosContext))]
-    [Migration("20250521214436_Cambios02")]
-    partial class Cambios02
+    [Migration("20250523193925_Cambios002")]
+    partial class Cambios002
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace krat1.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("codigo_ciiu")
+                    b.Property<string>("codigoCiiu")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -95,13 +95,13 @@ namespace krat1.Server.Migrations
                     b.Property<bool>("activo")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("actualizado_en")
+                    b.Property<DateTime>("actualizadoEn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("categoriaPadre")
+                    b.Property<int>("categoriapadreId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("creado_en")
+                    b.Property<DateTime>("creadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("descripcion")
@@ -116,7 +116,7 @@ namespace krat1.Server.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("categoriaPadre");
+                    b.HasIndex("categoriapadreId");
 
                     b.ToTable("Categorias");
                 });
@@ -135,7 +135,7 @@ namespace krat1.Server.Migrations
                     b.Property<bool>("activo")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("actualizado_en")
+                    b.Property<DateTime>("actualizadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("confirmarContraseña")
@@ -148,7 +148,7 @@ namespace krat1.Server.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("creado_en")
+                    b.Property<DateTime>("creadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("dv")
@@ -191,8 +191,10 @@ namespace krat1.Server.Migrations
                     b.Property<int>("tiposociedadId")
                         .HasColumnType("int");
 
-                    b.Property<int>("token")
-                        .HasColumnType("int");
+                    b.Property<string>("token")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("id");
 
@@ -261,26 +263,26 @@ namespace krat1.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<DateTime>("actualizado_en")
+                    b.Property<DateTime>("actualizadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("cantidad")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("creado_en")
+                    b.Property<DateTime>("creadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("productoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("puntoVentaId")
+                    b.Property<int>("puntoventaId")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
                     b.HasIndex("productoId");
 
-                    b.HasIndex("puntoVentaId");
+                    b.HasIndex("puntoventaId");
 
                     b.ToTable("Inventarios");
                 });
@@ -342,11 +344,6 @@ namespace krat1.Server.Migrations
                     b.Property<bool>("leer")
                         .HasColumnType("bit");
 
-                    b.Property<string>("moduloId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<int>("modulosId")
                         .HasColumnType("int");
 
@@ -375,33 +372,35 @@ namespace krat1.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("Impuesto")
-                        .HasColumnType("int");
-
                     b.Property<bool>("activo")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("actualizado_en")
+                    b.Property<DateTime>("actualizadoEn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("categoria")
+                    b.Property<int>("categoriaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("codigo")
-                        .HasColumnType("int");
+                    b.Property<string>("codigo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("costo")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("creado_en")
+                    b.Property<DateTime>("creadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("descripcion")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("impuestoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("nombre")
                         .IsRequired()
@@ -420,9 +419,9 @@ namespace krat1.Server.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("Impuesto");
+                    b.HasIndex("categoriaId");
 
-                    b.HasIndex("categoria");
+                    b.HasIndex("impuestoId");
 
                     b.ToTable("Productos");
                 });
@@ -435,19 +434,17 @@ namespace krat1.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<int>("ResponsableId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("activo")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("actualizado_en")
+                    b.Property<DateTime>("actualizadoEn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("creado_en")
+                    b.Property<DateTime>("creadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("direccion")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -456,13 +453,17 @@ namespace krat1.Server.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("responsableId")
+                        .HasColumnType("int");
+
                     b.Property<string>("telefono")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("id");
 
-                    b.HasIndex("ResponsableId");
+                    b.HasIndex("responsableId");
 
                     b.ToTable("PuntoVentas");
                 });
@@ -506,8 +507,10 @@ namespace krat1.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("codigo")
-                        .HasColumnType("int");
+                    b.Property<string>("codigo")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("descripcion")
                         .IsRequired()
@@ -540,14 +543,14 @@ namespace krat1.Server.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("tipoImpuesto")
+                    b.Property<int>("tipoimpuestoId")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
                     b.HasIndex("empresaId");
 
-                    b.HasIndex("tipoImpuesto");
+                    b.HasIndex("tipoimpuestoId");
 
                     b.ToTable("TratamientosEmpresas");
                 });
@@ -560,7 +563,7 @@ namespace krat1.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<DateTime>("actualizado_en")
+                    b.Property<DateTime>("actualizadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("apellidos")
@@ -578,7 +581,7 @@ namespace krat1.Server.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("creado_en")
+                    b.Property<DateTime>("creadoEn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("email")
@@ -602,6 +605,11 @@ namespace krat1.Server.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("token")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasKey("id");
 
                     b.HasIndex("rolesId");
@@ -611,97 +619,97 @@ namespace krat1.Server.Migrations
 
             modelBuilder.Entity("Krat1.Server.Models.Kratos.Roles", b =>
                 {
-                    b.HasOne("krat1.Server.Models.Kratos.Empresas", "rolempresaId")
+                    b.HasOne("krat1.Server.Models.Kratos.Empresas", "rolempresaFk")
                         .WithMany()
                         .HasForeignKey("empresaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("rolempresaId");
+                    b.Navigation("rolempresaFk");
                 });
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.Categorias", b =>
                 {
-                    b.HasOne("krat1.Server.Models.Kratos.Categorias", "categoriaPadre_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.Categorias", "categoriapadreFk")
                         .WithMany()
-                        .HasForeignKey("categoriaPadre")
+                        .HasForeignKey("categoriapadreId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("categoriaPadre_fk");
+                    b.Navigation("categoriapadreFk");
                 });
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.Empresas", b =>
                 {
-                    b.HasOne("Krat1.Server.Models.Kratos.ActividadEconomicas", "empresaActividad_fk")
+                    b.HasOne("Krat1.Server.Models.Kratos.ActividadEconomicas", "empresaactividadFk")
                         .WithMany()
                         .HasForeignKey("actividadId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("krat1.Server.Models.Kratos.RegimenesTributarios", "empresaRegimen_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.RegimenesTributarios", "empresaregimenFk")
                         .WithMany()
                         .HasForeignKey("regimenId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("krat1.Server.Models.Kratos.TiposSociedades", "empresaSociedad_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.TiposSociedades", "empresasociedadFk")
                         .WithMany()
                         .HasForeignKey("tiposociedadId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("empresaActividad_fk");
+                    b.Navigation("empresaactividadFk");
 
-                    b.Navigation("empresaRegimen_fk");
+                    b.Navigation("empresaregimenFk");
 
-                    b.Navigation("empresaSociedad_fk");
+                    b.Navigation("empresasociedadFk");
                 });
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.Impuestos", b =>
                 {
-                    b.HasOne("Krat1.Server.Models.Kratos.ActividadEconomicas", "impuestoActividad_fk")
+                    b.HasOne("Krat1.Server.Models.Kratos.ActividadEconomicas", "impuestoactividadFk")
                         .WithMany()
                         .HasForeignKey("actividadId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("krat1.Server.Models.Kratos.RegimenesTributarios", "impuestoRegimen_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.RegimenesTributarios", "impuestoregimenFk")
                         .WithMany()
                         .HasForeignKey("regimenId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("krat1.Server.Models.Kratos.TiposSociedades", "impuestoSociedades_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.TiposSociedades", "impuestosociedadesFk")
                         .WithMany()
                         .HasForeignKey("sociedadesId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("impuestoActividad_fk");
+                    b.Navigation("impuestoactividadFk");
 
-                    b.Navigation("impuestoRegimen_fk");
+                    b.Navigation("impuestoregimenFk");
 
-                    b.Navigation("impuestoSociedades_fk");
+                    b.Navigation("impuestosociedadesFk");
                 });
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.Inventarios", b =>
                 {
-                    b.HasOne("krat1.Server.Models.Kratos.Productos", "producto_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.Productos", "productoFk")
                         .WithMany()
                         .HasForeignKey("productoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("krat1.Server.Models.Kratos.PuntoVentas", "puntoVenta_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.PuntoVentas", "puntoventaFk")
                         .WithMany()
-                        .HasForeignKey("puntoVentaId")
+                        .HasForeignKey("puntoventaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("producto_fk");
+                    b.Navigation("productoFk");
 
-                    b.Navigation("puntoVenta_fk");
+                    b.Navigation("puntoventaFk");
                 });
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.Permisos", b =>
@@ -725,62 +733,62 @@ namespace krat1.Server.Migrations
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.Productos", b =>
                 {
-                    b.HasOne("krat1.Server.Models.Kratos.TratamientosEmpresas", "tratamiento_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.Categorias", "categoriaFk")
                         .WithMany()
-                        .HasForeignKey("Impuesto")
+                        .HasForeignKey("categoriaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("krat1.Server.Models.Kratos.Categorias", "categoria_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.TratamientosEmpresas", "impuestoFk")
                         .WithMany()
-                        .HasForeignKey("categoria")
+                        .HasForeignKey("impuestoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("categoria_fk");
+                    b.Navigation("categoriaFk");
 
-                    b.Navigation("tratamiento_fk");
+                    b.Navigation("impuestoFk");
                 });
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.PuntoVentas", b =>
                 {
-                    b.HasOne("krat1.Server.Models.Kratos.Usuarios", "usuario_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.Usuarios", "usuarioFk")
                         .WithMany()
-                        .HasForeignKey("ResponsableId")
+                        .HasForeignKey("responsableId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("usuario_fk");
+                    b.Navigation("usuarioFk");
                 });
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.TratamientosEmpresas", b =>
                 {
-                    b.HasOne("krat1.Server.Models.Kratos.Empresas", "empresa_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.Empresas", "empresaFk")
                         .WithMany()
                         .HasForeignKey("empresaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("krat1.Server.Models.Kratos.Impuestos", "impuestos_fk")
+                    b.HasOne("krat1.Server.Models.Kratos.Impuestos", "impuestosFk")
                         .WithMany()
-                        .HasForeignKey("tipoImpuesto")
+                        .HasForeignKey("tipoimpuestoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("empresa_fk");
+                    b.Navigation("empresaFk");
 
-                    b.Navigation("impuestos_fk");
+                    b.Navigation("impuestosFk");
                 });
 
             modelBuilder.Entity("krat1.Server.Models.Kratos.Usuarios", b =>
                 {
-                    b.HasOne("Krat1.Server.Models.Kratos.Roles", "usuariosrolesId")
+                    b.HasOne("Krat1.Server.Models.Kratos.Roles", "usuariosrolesFk")
                         .WithMany()
                         .HasForeignKey("rolesId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("usuariosrolesId");
+                    b.Navigation("usuariosrolesFk");
                 });
 #pragma warning restore 612, 618
         }

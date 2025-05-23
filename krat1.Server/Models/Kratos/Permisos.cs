@@ -9,32 +9,33 @@ namespace krat1.Server.Models.Kratos
         public int id { get; set; }
 
 
-      
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("Roles")]
         public int rolesId { get; set; }
         public Roles? permisosrolesId { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [ForeignKey("Modulos")]
         public int modulosId { get; set; }
         public Modulos? permisosmodulosId { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string nombre { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string descripcion { get; set; }
 
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
         public string codigo { get; set; }
 
 
-        [MaxLength(100, ErrorMessage = "El campo {0} debe tener máximo {1} caracteres")]
-        public string moduloId { get; set; }
-        
         
         public bool consultar { get; set; }
         
