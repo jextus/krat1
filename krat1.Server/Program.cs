@@ -1,3 +1,4 @@
+using krat1.Server.Services.Seguridad;
 using Microsoft.EntityFrameworkCore;
 using Practica.Server.Models;
 
@@ -10,6 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// ... otro código existente ...
+
+builder.Services.AddScoped<IEncriptar, Encriptar>();
 var app = builder.Build();
 
 app.UseDefaultFiles();

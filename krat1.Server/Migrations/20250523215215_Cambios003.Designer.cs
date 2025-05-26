@@ -12,8 +12,8 @@ using Practica.Server.Models;
 namespace krat1.Server.Migrations
 {
     [DbContext(typeof(KratosContext))]
-    [Migration("20250523193925_Cambios002")]
-    partial class Cambios002
+    [Migration("20250523215215_Cambios003")]
+    partial class Cambios003
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
