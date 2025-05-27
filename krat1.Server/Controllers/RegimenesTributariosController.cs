@@ -15,7 +15,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        [Route("RegistrarRegimenTributario")]
+        public async Task<IActionResult> RegistrarRegimenTributario(RegimenesTributarios regimen)
+        {
+            if (regimen == null)
+            {
+                return BadRequest("Datos de régimen tributario inválidos.");
+            }
 
+            await _context.RegimenesTributarios.AddAsync(regimen);
+            await _context.SaveChangesAsync();
+            return Ok(regimen);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<RegimenesTributarios>> Listar()
@@ -61,5 +73,6 @@ namespace krat1.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+        
     }
 }

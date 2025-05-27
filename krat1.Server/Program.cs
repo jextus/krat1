@@ -12,8 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-// ... otro código existente ...
-
+builder.Services.AddScoped< IEncriptarService , EncriptacionService> ();
 
 var app = builder.Build();
 

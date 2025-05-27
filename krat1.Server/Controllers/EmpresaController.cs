@@ -12,9 +12,9 @@ namespace krat1.Server.Controllers
     public class EmpresaController : ControllerBase
     {
         private readonly KratosContext _context;
-        private readonly IEncryptionService _encryptionService;
+        private readonly IEncriptarService _encryptionService;
 
-        public EmpresaController(KratosContext context, IEncryptionService encryptionService)
+        public EmpresaController(KratosContext context, IEncriptarService encryptionService)
         {
             _context = context;
             _encryptionService = encryptionService;
@@ -25,8 +25,8 @@ namespace krat1.Server.Controllers
         public async Task<IActionResult> RegistroEmpresa(Empresas empresas)
         {
        
-            empresas.contraseña = _encryptionService.Encrypt(empresas.contraseña);
-            empresas.confirmarContraseña = _encryptionService.Encrypt(empresas.confirmarContraseña);
+            empresas.contraseña = _encryptionService.Encriptar(empresas.contraseña);
+            empresas.confirmarContraseña = _encryptionService.Encriptar(empresas.confirmarContraseña);
 
             await _context.Empresas.AddAsync(empresas);
             await _context.SaveChangesAsync();
@@ -44,8 +44,8 @@ namespace krat1.Server.Controllers
                 .ToListAsync();
 
             empresas.ForEach(e => {
-                e.contraseña = _encryptionService.Decrypt(e.contraseña);
-                e.confirmarContraseña = _encryptionService.Decrypt(e.confirmarContraseña);
+                e.contraseña = _encryptionService.Desencriptar(e.contraseña);
+                e.confirmarContraseña = _encryptionService.Desencriptar(e.confirmarContraseña);
             });
 
             return empresas;
@@ -65,8 +65,8 @@ namespace krat1.Server.Controllers
                 return NotFound();
 
             // Desencriptar las contraseñas
-            empresa.contraseña = _encryptionService.Decrypt(empresa.contraseña);
-            empresa.confirmarContraseña = _encryptionService.Decrypt(empresa.confirmarContraseña);
+            empresa.contraseña = _encryptionService.Desencriptar(empresa.contraseña);
+            empresa.confirmarContraseña = _encryptionService.Desencriptar(empresa.confirmarContraseña);
 
             return empresa;
         }
@@ -82,10 +82,10 @@ namespace krat1.Server.Controllers
             }
 
             if (!string.IsNullOrEmpty(empresa.contraseña))
-                empresaExistente.contraseña = _encryptionService.Encrypt(empresa.contraseña);
+                empresaExistente.contraseña = _encryptionService.Encriptar(empresa.contraseña);
 
             if (!string.IsNullOrEmpty(empresa.confirmarContraseña))
-                empresaExistente.confirmarContraseña = _encryptionService.Encrypt(empresa.confirmarContraseña);
+                empresaExistente.confirmarContraseña = _encryptionService.Encriptar(empresa.confirmarContraseña);
 
   
             empresaExistente.tiposociedadId = empresa.tiposociedadId;

@@ -16,6 +16,20 @@ namespace krat1.Server.Controllers
             _context = context;
         }
 
+        [HttpPost]
+        [Route("RegistrarPuntoVenta")]
+        public async Task<IActionResult> RegistrarPuntoVenta(PuntoVentas puntoVenta)
+        {
+            if (puntoVenta == null)
+            {
+                return BadRequest("Datos de punto de venta inválidos.");
+            }
+
+            await _context.PuntoVentas.AddAsync(puntoVenta);
+            await _context.SaveChangesAsync();
+            return Ok(puntoVenta);
+        }
+
         [HttpGet]
         [Route("Listar")]
         public async Task<List<PuntoVentas>> Listar()
@@ -62,5 +76,6 @@ namespace krat1.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+      
     }
 }

@@ -16,7 +16,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        [Route("RegistrarModulo")]
+        public async Task<IActionResult> RegistrarModulo(Modulos modulo)
+        {
+            if (modulo == null)
+            {
+                return BadRequest("Datos de módulo inválidos.");
+            }
 
+            await _context.Modulos.AddAsync(modulo);
+            await _context.SaveChangesAsync();
+            return Ok(modulo);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<Modulos>> Listar()
@@ -60,5 +72,6 @@ namespace krat1.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+       
     }
 }

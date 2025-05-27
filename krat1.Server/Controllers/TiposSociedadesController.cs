@@ -1,4 +1,5 @@
 ﻿using krat1.Server.Models.Kratos;
+using Krat1.Server.Models.Kratos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        [Route("Registrar")]
+        public async Task<IActionResult> Registrar(TiposSociedades tipoSociedad)
+        {
+            if (tipoSociedad == null)
+            {
+                return BadRequest("Datos de tipo de sociedad inválidos.");
+            }
 
+            await _context.TiposSociedades.AddAsync(tipoSociedad);
+            await _context.SaveChangesAsync();
+            return Ok(tipoSociedad);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<TiposSociedades>> Listar()

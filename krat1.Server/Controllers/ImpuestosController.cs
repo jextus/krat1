@@ -16,7 +16,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        [Route("RegistrarImpuesto")]
+        public async Task<IActionResult> RegistrarImpuesto(Impuestos impuesto)
+        {
+            if (impuesto == null)
+            {
+                return BadRequest("Datos de impuesto inválidos.");
+            }
 
+            await _context.Impuestos.AddAsync(impuesto);
+            await _context.SaveChangesAsync();
+            return Ok(impuesto);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<Impuestos>> Listar()
@@ -64,5 +76,6 @@ namespace krat1.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+     
     }
 }

@@ -16,7 +16,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        [Route("RegistrarCategoria")]
+        public async Task<IActionResult> RegistrarCategoria(Categorias categoria)
+        {
+            if (categoria == null)
+            {
+                return BadRequest("Datos de categoría inválidos.");
+            }
 
+            await _context.Categorias.AddAsync(categoria);
+            await _context.SaveChangesAsync();
+            return Ok(categoria);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<Categorias>> Listar()
@@ -64,5 +76,7 @@ namespace krat1.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+       
+     
     }
 }

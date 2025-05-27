@@ -1,4 +1,5 @@
 ﻿
+using krat1.Server.Models.Kratos;
 using Krat1.Server.Models.Kratos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,19 @@ namespace krat1.Server.Controllers
             _context = context;
         }
 
+        [HttpPost]
+        [Route("RegistrarActividad")]
+        public async Task<IActionResult> RegistrarActividad(ActividadEconomicas actividad)
+        {
+            if (actividad == null)
+            {
+                return BadRequest("Datos de actividad inválidos.");
+            }
+
+            await _context.ActividadEconomicas.AddAsync(actividad);
+            await _context.SaveChangesAsync();
+            return Ok(actividad);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<ActividadEconomicas>> Listar()
@@ -62,5 +76,6 @@ namespace krat1.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+    
     }
 }

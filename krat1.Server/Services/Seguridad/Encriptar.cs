@@ -2,75 +2,72 @@
 using System.Security.Cryptography;
 using System.Text;
 
-public class EncryptionService : IEncryptionService
+
+public class EncriptacionService : IEncriptarService
 {
     private readonly byte[] _key;
     private readonly byte[] _iv;
 
-    public EncryptionService(IConfiguration configuration)
+    public EncriptacionService()
     {
-      
-        var encryptionKey = configuration["Encryption:Key"];
-        var encryptionIV = configuration["Encryption:IV"];
-
-       
-        if (string.IsNullOrEmpty(encryptionKey))
-            throw new ArgumentNullException("Encryption key not configured");
-        if (string.IsNullOrEmpty(encryptionIV))
-            throw new ArgumentNullException("Encryption IV not configured");
-
-        _key = Encoding.UTF8.GetBytes(encryptionKey);
-        _iv = Encoding.UTF8.GetBytes(encryptionIV);
+        
+        _key = Encoding.UTF8.GetBytes("1234567890123456"); 
+        _iv = Encoding.UTF8.GetBytes("6543210987654321"); 
     }
 
-    public string Encrypt(string plainText)
+    public string Encriptar(string textoPlano)
     {
-        if (string.IsNullOrEmpty(plainText))
-            return plainText;
+        if (string.IsNullOrEmpty(textoPlano))
+            return string.Empty;
 
-        using (Aes aesAlg = Aes.Create())
+        using var aes = Aes.Create();
+        aes.Key = _key;
+        aes.IV = _iv;
+
+        var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+        using var ms = new MemoryStream();
+        using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
+        using (var sw = new StreamWriter(cs))
         {
-            aesAlg.Key = _key;
-            aesAlg.IV = _iv;
+            sw.Write(textoPlano);
+        }
+        return Convert.ToBase64String(ms.ToArray());
+    }
 
-            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+    public bool VerificarHash(string textoPlano, string hash)
+    {
+        if (string.IsNullOrEmpty(textoPlano) || string.IsNullOrEmpty(hash))
+            return false;
 
-            using (MemoryStream msEncrypt = new MemoryStream())
-            {
-                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                {
-                    using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                    {
-                        swEncrypt.Write(plainText);
-                    }
-                    return Convert.ToBase64String(msEncrypt.ToArray());
-                }
-            }
+        try
+        {
+            string textoDesencriptado = Desencriptar(hash);
+            return textoDesencriptado == textoPlano;
+        }
+        catch
+        {
+         
+            return false;
         }
     }
 
-    public string Decrypt(string cipherText)
+    public string Desencriptar(string textoCifrado)
     {
-        if (string.IsNullOrEmpty(cipherText))
-            return cipherText;
+        if (string.IsNullOrEmpty(textoCifrado))
+            return string.Empty;
 
-        using (Aes aesAlg = Aes.Create())
-        {
-            aesAlg.Key = _key;
-            aesAlg.IV = _iv;
+        using var aes = Aes.Create();
+        aes.Key = _key;
+        aes.IV = _iv;
 
-            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+        var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-            using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
-            {
-                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                {
-                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                    {
-                        return srDecrypt.ReadToEnd();
-                    }
-                }
-            }
-        }
+        var buffer = Convert.FromBase64String(textoCifrado);
+
+        using var ms = new MemoryStream(buffer);
+        using var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read);
+        using var sr = new StreamReader(cs);
+        return sr.ReadToEnd();
     }
 }

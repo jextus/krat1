@@ -15,7 +15,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        [Route("RegistrarPermiso")]
+        public async Task<IActionResult> RegistrarPermiso(Permisos permiso)
+        {
+            if (permiso == null)
+            {
+                return BadRequest("Datos de permiso inválidos.");
+            }
 
+            await _context.Permisos.AddAsync(permiso);
+            await _context.SaveChangesAsync();
+            return Ok(permiso);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<Permisos>> Listar()

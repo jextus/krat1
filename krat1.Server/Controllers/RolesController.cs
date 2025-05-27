@@ -16,7 +16,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        [Route("RegistrarRol")]
+        public async Task<IActionResult> RegistrarRol(Roles rol)
+        {
+            if (rol == null)
+            {
+                return BadRequest("Datos de rol inválidos.");
+            }
 
+            await _context.Roles.AddAsync(rol);
+            await _context.SaveChangesAsync();
+            return Ok(rol);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<Roles>> Listar()
@@ -62,5 +74,6 @@ namespace krat1.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+       
     }
 }

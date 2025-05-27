@@ -15,7 +15,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        [Route("RegistrarProducto")]
+        public async Task<IActionResult> RegistrarProducto(Productos producto)
+        {
+            if (producto == null)
+            {
+                return BadRequest("Datos de producto inválidos.");
+            }
 
+            await _context.Productos.AddAsync(producto);
+            await _context.SaveChangesAsync();
+            return Ok(producto);
+        }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<Productos>> Listar()

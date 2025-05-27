@@ -16,7 +16,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+            [HttpPost]
+            [Route("RegistrarInventario")]
+            public async Task<IActionResult> RegistrarInventario(Inventarios inventario)
+            {
+                if (inventario == null)
+                {
+                    return BadRequest("Datos de inventario inválidos.");
+                }
 
+                await _context.Inventarios.AddAsync(inventario);
+                await _context.SaveChangesAsync();
+                return Ok(inventario);
+            }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<Inventarios>> Listar()

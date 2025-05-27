@@ -1,4 +1,5 @@
 ﻿using krat1.Server.Models.Kratos;
+using Krat1.Server.Models.Kratos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,19 @@ namespace krat1.Server.Controllers
         {
             _context = context;
         }
+            [HttpPost]
+            [Route("RegistrarTratamiento")]
+            public async Task<IActionResult> RegistrarTratamiento(TratamientosEmpresas tratamiento)
+            {
+                if (tratamiento == null)
+                {
+                    return BadRequest("Datos de tratamiento inválidos.");
+                }
 
+                await _context.TratamientosEmpresas.AddAsync(tratamiento);
+                await _context.SaveChangesAsync();
+                return Ok(tratamiento);
+            }
         [HttpGet]
         [Route("Listar")]
         public async Task<List<TratamientosEmpresas>> Listar()
