@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Practica.Server.Models;
+using Krat1.Server.Models;
 
 namespace krat1.Server.Controllers
 {
@@ -50,25 +50,23 @@ namespace krat1.Server.Controllers
         [HttpPost("iniciarSesion")]
         public async Task<IActionResult> iniciarSesion([FromBody] IniciarSesionRequest request)
         {
-            if (string.IsNullOrEmpty(request.empresas) || string.IsNullOrEmpty(request.contraseña))
+            if (string.IsNullOrEmpty(request.email) || string.IsNullOrEmpty(request.contraseña))
             {
                 return BadRequest("Por favor, complete todos los campos.");
             }
+            request.contraseña = Encriptar.EncriptarClave(request.contraseña);
 
-            var empresas = await _usuarioService.GetEmpresa(request.empresas, request.contraseña);
+            var empresa = await _usuarioService.ObtenerEmpresa(request.email, request.contraseña);
 
-            if (empresas == null)
+            if (empresa == null)
             {
-                return Unauthorized("Nombre de usuario o contraseña incorrectos.");
+                return BadRequest("Nombre de usuario o contraseña incorrectos.");
             }
-
-        
-            
-
-
-           
-
-            return Ok(new { Message = "Inicio de sesión exitoso", empresas });
+            var Claim = new List<Claim>();
+            {
+                new Claim(ClaimTypes.Name, empresa.email);
+            }
+            return Ok(new { Message = "Inicio de sesión exitoso", empresa });
         }
 
         [HttpPost("cerrarSesion")]

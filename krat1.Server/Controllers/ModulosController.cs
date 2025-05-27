@@ -3,10 +3,11 @@ using Krat1.Server.Models.Kratos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Practica.Server.Models;
-
+using Krat1.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace krat1.Server.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ModulosController : ControllerBase

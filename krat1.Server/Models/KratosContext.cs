@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using Krat1.Server.Models.Kratos;
 
-namespace Practica.Server.Models
+namespace Krat1.Server.Models
 {
     public class KratosContext : DbContext
     {
