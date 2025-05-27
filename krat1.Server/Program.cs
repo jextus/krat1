@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 // ... otro código existente ...
 
-builder.Services.AddScoped<IEncriptar, Encriptar>();
+
 var app = builder.Build();
 
 app.UseDefaultFiles();

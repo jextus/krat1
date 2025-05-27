@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace krat1.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class Cambios003 : Migration
+    public partial class Cambios002 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
