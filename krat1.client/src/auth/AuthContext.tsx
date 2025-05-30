@@ -1,6 +1,6 @@
-// src/auth/AuthContext.jsx
+// 
 import { createContext, useContext, UseState, ReactNode } from 'react';
-
+//Es el contexto global de (AUTH)
 interface AuthContextType{
   user: any;
   login: (userData: any) => void;
